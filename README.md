@@ -47,8 +47,6 @@ MQTT_PORT=1883
 
 ### ✅ 4. Create requirements.txt
 ```txt
-Copy
-Edit
 fastapi
 uvicorn
 sqlalchemy
