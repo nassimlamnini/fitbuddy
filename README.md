@@ -18,20 +18,7 @@ This project is a backend system for processing and storing movement data from c
 
 ---
 
-## 🗂 Project Structure
 
-. ├── alembic/ # Database migration folder (alembic) 
-  ├── alembic.ini # Alembic configuration 
-  ├── database.py # Database connection config 
-  ├── models.py # SQLAlchemy ORM models 
-  ├── schemas.py # Pydantic request/response schemas 
-  ├── services.py # Business logic 
-  ├── main.py # FastAPI app + MQTT listener 
-  ├── requirements.txt # Python dependencies 
-  ├── .env # Environment variables 
-  ├── Dockerfile # Docker build config for FastAPI 
-  ├── docker-compose.yml # Multi-container setup: API + DB + MQTT 
-  └── .dockerignore # Prevents venv & junk files in Docker image
 ## 🚀 How to Run the Project Locally
 
 ### ✅ 1. Prerequisites
