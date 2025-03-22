@@ -24,7 +24,7 @@ This project is a backend system for processing and storing movement data from c
 ### ✅ 1. Prerequisites
 
 - Docker + Docker Compose installed
-- Python 3.9+ (optional for MQTT testing outside the container)
+- Python 3.9+ 
 
 ---
 
