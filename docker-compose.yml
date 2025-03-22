@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: nassim
+      POSTGRES_PASSWORD: Project145
+      POSTGRES_DB: fitbuddy
+    ports:
+      - "5432:5432"
+
+  mosquitto:
+    image: eclipse-mosquitto
+    ports:
+      - "1883:1883"
+
+  api:
+    build: .
+    depends_on:
+      - db
+      - mosquitto
+    environment:
+      DATABASE_URL: "postgresql://nassim:Project145@db/fitbuddy"
+      MQTT_BROKER: "mosquitto"
+      MQTT_PORT: "1883"
+    ports:
+      - "8000:8000"
