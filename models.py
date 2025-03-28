@@ -1,6 +1,8 @@
 from sqlalchemy import Column, Integer, Float, String, DateTime, Boolean, ForeignKey, func
 from sqlalchemy.orm import relationship
 from database import Base
+from datetime import datetime
+
 
 class SensorData(Base):
     __tablename__ = "sensor_data"
@@ -32,3 +34,13 @@ class SensorStatus(Base):
     firmware_version = Column(String, nullable=False)
     is_functional = Column(Boolean, default=True)
     last_update = Column(DateTime, default=func.now())
+
+class RawSensorData(Base):
+    __tablename__ = "raw_sensor_data"
+
+    id = Column(Integer, primary_key=True, index=True)
+    accelerometer = Column(String)
+    gyroscope = Column(String)
+    magnetometer = Column(String)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+

@@ -31,3 +31,13 @@ def create_sensor_status(db: Session, data: schemas.SensorStatusCreate):
 
 def get_sensor_status(db: Session, skip: int = 0, limit: int = 10):
     return db.query(models.SensorStatus).offset(skip).limit(limit).all()
+
+def create_raw_sensor_data(db: Session, raw_data: schemas.RawSensorDataCreate):
+    new_data = models.RawSensorData(**raw_data.dict())
+    db.add(new_data)
+    db.commit()
+    db.refresh(new_data)
+    return new_data
+
+def get_raw_sensor_data(db: Session, skip: int = 0, limit: int = 10):
+    return db.query(models.RawSensorData).offset(skip).limit(limit).all()

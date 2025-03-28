@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from datetime import datetime
 
 
+#sensor_data
 class SensorDataBase(BaseModel):
     repetitions: int
     duration: float
@@ -19,6 +20,7 @@ class SensorDataResponse(SensorDataBase):
     class Config:
         orm_mode = True
 
+#asymmetry_data
 class AsymmetryDataBase(BaseModel):
     sensor_id: int  # Link to sensor_data
     left_side_force: float
@@ -34,7 +36,7 @@ class AsymmetryDataResponse(AsymmetryDataBase):
 
     class Config:
         orm_mode = True
-
+#status
 class SensorStatusBase(BaseModel):
     sensor_id: int  # Link to sensor_data
     battery_level: float
@@ -50,3 +52,19 @@ class SensorStatusResponse(SensorStatusBase):
 
     class Config:
         orm_mode = True
+
+
+#raw
+
+class RawSensorDataCreate(BaseModel):
+    accelerometer: str
+    gyroscope: str
+    magnetometer: str
+
+class RawSensorDataResponse(RawSensorDataCreate):
+    id: int
+    timestamp: datetime
+
+    class Config:
+        orm_mode = True
+
