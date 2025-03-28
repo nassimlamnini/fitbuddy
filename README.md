@@ -13,6 +13,7 @@ This project is a backend system for processing and storing movement data from c
   - `sensor_data` (repetitions, speed, etc.)
   - `asymmetry_data` (left/right side force, imbalance)
   - `sensor_status` (battery, firmware, health)
+  - `raw_sensor_data` (accelerometer,gyroscope,magnetometer)
 - 🐳 Containerized using **Docker + Docker Compose**
 - ☁️ Prepares for **AWS migration** (API Gateway, RDS, IoT Core)
 
@@ -34,30 +35,10 @@ This project is a backend system for processing and storing movement data from c
 git clone https://github.com/nassimlamnini/fitbuddy
 cd fitbuddy
 ```
+
 ---
 
-### ✅ 3. Create .env File
-
-```env
-DATABASE_URL=postgresql://nassim:Project145@db/fitbuddy
-MQTT_BROKER=mosquitto
-MQTT_PORT=1883
-```
----
-
-### ✅ 4. Create requirements.txt
-```txt
-fastapi
-uvicorn
-sqlalchemy
-psycopg2
-alembic
-paho-mqtt
-python-dotenv
-```
----
-
-### ✅ 5. Launch Everything with Docker Compose
+### ✅ 3. Launch Everything with Docker Compose
 ```bash
 docker-compose up --build
 ```
@@ -66,3 +47,9 @@ After the build finishes, access the API docs here:
 ```bash
 http://localhost:8000/docs
 ```
+---
+
+## Congratulations!
+
+Now you have access to the FastAPI and you can run tests by launching the python files in tests folder
+
