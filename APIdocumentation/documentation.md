@@ -103,3 +103,23 @@ docker-compose up --build
 ---
 
 ## 🗄 PostgreSQL Tables Overview
+|Table Name             | Purpose                       |
+|-----------------------|-------------------------------|
+| raw_sensor_data       | Accelerometer, gyroscope, etc.|
+| sensor_data	          | Processed data: reps, speed...|
+| sensor_status	        | Battery, connectivity,...     |
+| asymmetry_data        | Left vs. right differences    |
+
+Each table includes:
+-  id (Primary Key)
+-  timestamp (datetime)
+
+---
+
+## Future Integration
+This API is designed to be queried by a mobile application (via NFC/QR scan), which retrieves:
+
+-  Real-time status
+-  Latest session metrics
+-  Movement analysis (asymmetry)
+
