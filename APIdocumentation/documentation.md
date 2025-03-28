@@ -1,129 +1,105 @@
-📡 FitBuddy FastAPI – Sensor Data Collection API
+# 📡 FitBuddy FastAPI – Sensor Data Collection API
+
 This FastAPI project serves as the backend service for collecting and managing fitness sensor data from IoT devices, with MQTT integration, Dockerized deployment, and PostgreSQL support.
 
-🔧 Architecture Overview
-FastAPI RESTful API for data processing
+---
 
-PostgreSQL for persistent storage
+## 🔧 Architecture Overview
 
-Eclipse Mosquitto (MQTT) for sensor data simulation
+- **FastAPI** RESTful API for data processing  
+- **PostgreSQL** for persistent storage  
+- **Eclipse Mosquitto (MQTT)** for sensor data simulation  
+- **Docker** for environment portability and orchestration  
+- **pgAdmin / psql** for database inspection  
+- **Swagger UI (`/docs`)** for API testing and live documentation  
 
-Docker for environment portability and orchestration
+---
 
-pgAdmin / psql for database inspection
+## 📚 API Endpoints
 
-Swagger UI (/docs) for API testing and live documentation
+### 🔹 `/sensor/` - Processed Sensor Data
 
-📚 API Endpoints
-🔹 /sensor/ - Processed Sensor Data
-Method	Endpoint	Description
-POST	/sensor/	Create new sensor record
-GET	/sensor/	Retrieve sensor records
-Fields:
+| Method | Endpoint    | Description              |
+|--------|-------------|--------------------------|
+| `POST` | `/sensor/`  | Create new sensor record |
+| `GET`  | `/sensor/`  | Retrieve sensor records  |
 
-repetitions: int
+**Fields:**
+- `repetitions`: int  
+- `duration`: float  
+- `difficulty`: float  
+- `speed`: float  
+- `amplitude`: float  
 
-duration: float
+---
 
-difficulty: float
+### 🔹 `/status/` - Sensor Status
 
-speed: float
+| Method | Endpoint    | Description              |
+|--------|-------------|--------------------------|
+| `POST` | `/status/`  | Submit status of sensor  |
+| `GET`  | `/status/`  | Fetch all statuses       |
 
-amplitude: float
+**Fields:**
+- `battery`: float  
+- `connected`: bool  
+- `errors`: Optional[str]  
 
-🔹 /status/ - Sensor Status
-Method	Endpoint	Description
-POST	/status/	Submit status of sensor
-GET	/status/	Fetch all statuses
-Fields:
+---
 
-battery: float
+### 🔹 `/asymmetry/` - Movement Asymmetry
 
-connected: bool
+| Method | Endpoint       | Description              |
+|--------|----------------|--------------------------|
+| `POST` | `/asymmetry/`  | Submit asymmetry data    |
+| `GET`  | `/asymmetry/`  | Get asymmetry history    |
 
-errors: Optional[str]
+**Fields:**
+- `left`: float  
+- `right`: float  
+- `difference`: float  
 
-🔹 /asymmetry/ - Movement Asymmetry
-Method	Endpoint	Description
-POST	/asymmetry/	Submit asymmetry data
-GET	/asymmetry/	Get asymmetry history
-Fields:
+---
 
-left: float
+### 🔹 `/raw/` - Raw Sensor Data
 
-right: float
+| Method | Endpoint | Description            |
+|--------|----------|------------------------|
+| `POST` | `/raw/`  | Insert raw sensor data |
+| `GET`  | `/raw/`  | Fetch raw sensor logs  |
 
-difference: float
+**Fields:**
+- `accelerometer`: str  
+- `gyroscope`: str  
+- `magnetometer`: str  
 
-🔹 /raw/ - Raw Sensor Data
-Method	Endpoint	Description
-POST	/raw/	Insert raw sensor data
-GET	/raw/	Fetch raw sensor logs
-Fields:
+---
 
-accelerometer: str
+## 🧪 Testing MQTT Integration
 
-gyroscope: str
+Simulate incoming data from MQTT using the scripts in `/tests/`:
 
-magnetometer: str
+- `mqtt_sensor.py`: sends processed data  
+- `mqtt_status.py`: sends status data  
+- `mqtt_asymmetry.py`: sends asymmetry metrics
+- `mqtt_raw.py`: sends raw data
 
-🧪 Testing MQTT Integration
-Simulate incoming data from MQTT using the scripts in /tests/:
+Make sure to install dependencies and run your local broker (`eclipse-mosquitto`) via Docker.
 
-mqtt_sensor.py: sends processed data
+---
 
-mqtt_status.py: sends status data
+## 📦 Docker Stack
 
-mqtt_asymmetry.py: sends asymmetry metrics
-
-Make sure to install dependencies and run your local broker (eclipse-mosquitto) via Docker.
-
-📦 Docker Stack
-css
-Copy
-Edit
+```bash
 docker-compose up --build
-Services:
+```
+### Services:
 
-fastapi-api - app logic
+- fastapi-api - app logic
+- fastapi-postgres - PostgreSQL 17 DB
+- fastapi-mosquitto - MQTT broker
+- pgAdmin (optional) - admin GUI
 
-fastapi-postgres - PostgreSQL 17 DB
+---
 
-fastapi-mosquitto - MQTT broker
-
-pgAdmin (if added) - optional admin GUI
-
-🗄 PostgreSQL Tables Overview
-Following the cahier des charges, three separate tables are used:
-
-Table Name	Purpose
-raw_sensor_data	Accelerometer, gyroscope, etc.
-sensor_data	Processed data: reps, speed...
-sensor_status	Battery, connectivity, errors...
-asymmetry_data	Left vs. right differences
-Each table has a timestamp field and a serial id.
-
-📱 Future Integration
-This API is designed to be queried by a mobile application (via NFC/QR scan), which retrieves:
-
-Real-time status
-
-Latest session metrics
-
-Movement analysis (asymmetry)
-
-🛠 Technologies Used
-Python 3.9+
-
-FastAPI
-
-SQLAlchemy
-
-Pydantic
-
-Eclipse Mosquitto (MQTT)
-
-PostgreSQL
-
-Docker + Docker Compose
-
+## 🗄 PostgreSQL Tables Overview
